@@ -1,0 +1,269 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    font-family: 'Roboto', 'sans-serif';
+}
+
+h1{
+    font-size: 20px;
+}
+
+.material-icons{
+    color: rgb(96,96,96);
+}
+
+/*////////Header////////*/
+
+.header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: 70px;
+    padding: 15px;
+}
+
+.header i{
+    padding: 0 7px;
+    cursor: pointer;
+}
+
+.header-left{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content:center;
+}
+
+.header-left img{
+    width: 100%;
+    margin-left: 15px;
+    height: 30px;
+}
+
+.header-left i{
+    padding: 0 7px;
+    cursor: pointer;
+}
+
+.header-search form{
+    display: flex;
+    border: 1px solid #dddd;
+    height: 35px;
+}
+
+.header-search input{
+    width: 500px;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    height: 100%;
+    outline: 0;
+}
+
+.header-search button{
+    border: none;
+    height: 100%;
+}
+
+/*////////mainBody////////*/
+
+.mainBody{
+    height: calc(100vh - 70px);
+    display: flex;
+    overflow: hidden; /*TODO*/
+}
+
+.sidebar{
+    background-color: white;
+    height: 100%;
+    width: 230px;
+    overflow-y: scroll; /*TODO*/
+}
+
+.sidebar hr{
+    background-color: #e5e5e5;
+    border: none;
+    height: 1px;
+}
+
+.sidebar::-webkit-scrollbar{
+    display: none;
+}
+
+.sidebar-categories{
+    display: flex;
+    flex-direction: column;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.sidebar-category{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 12px 25px;
+    /*justify-content: center;*/
+}
+
+.sidebar-category span{
+    margin-left: 15px;
+    cursor: pointer;
+}
+
+.sidebar-category span:hover{
+    background-color: white;
+}
+
+.videos{
+    background-color: #f9f9f9;
+    width: 100%;
+    height: 100%;
+    padding: 15px 15px;
+    border-top: 1px solid #ddd;
+    overflow-y: scroll;
+}
+
+.drop-down-container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.dropdown-content-background{
+    display: none;
+    background-color: rgb(85, 85, 85);
+    padding: 15px;
+    z-index: 2;
+    border-radius: 4px;
+}
+
+.dropdown-contents{
+
+}
+
+.dropdown-content{
+    display: flex;
+    align-items: center;
+    padding: 5px;
+}
+
+.dropdown-content i{
+    color: white;
+    margin-right: 5px;
+}
+
+.dropdown-content span{
+    color: white;
+    margin-left: 5px;
+}
+
+.show-dropdown{
+    display: inline;
+}
+
+.video-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.video{
+    width: 310px;
+    margin-bottom: 30px;
+}
+
+.video-thumbnail{
+    width: 100%;
+    height: 170px;
+}
+
+.video-thumbnail img{
+    object-fit: contain; /*TODO*/
+    height: 100%;
+    width: 100%;
+}
+
+.video-details{
+    display: flex;
+    margin-right: 10px;
+}
+
+.video-details .author{
+
+}
+
+.video-details .author img{
+    object-fit: cover;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+}
+
+.video-details .title {
+    display: flex;
+    flex-direction: column;
+}
+
+.video-details .title h3{
+    color: #272727;
+    line-height: 18px;
+    font-size: 14px;
+    margin-bottom: 6px;
+}
+
+.video-details .title a,span{
+    text-decoration: none;
+    color: rgb(96, 96, 96);
+}
+
+
+@media (max-width: 425px){
+    .header-search{
+        display: none;
+    }
+
+    .header-icons .material-icons{
+        display: none;
+    }
+
+    .header-icons .display-this{
+        display: inline;
+    }
+
+    .sidebar{
+        display: none;
+    }
+}
+
+@media (max-width: 768px){
+    .header-search{
+        display: none;
+    }
+
+    .sidebar{
+        display: none;
+    }
+
+    .show-sidebar{
+        display: inline;
+        position: fixed;
+        top: 4.4rem;
+        height: auto;
+    }
+}
+
+@media (max-width: 941px){
+    .header-search input{
+        width: 300px;
+    }
+
+}

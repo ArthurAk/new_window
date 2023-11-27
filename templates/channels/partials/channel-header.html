@@ -1,0 +1,32 @@
+<div class="channel-art">
+    <img src="{{ channel.channel_art.url }}" alt="channel-art-image">
+</div>
+<div class="channel-header flex">
+    <div class="channel-img-title flex">
+        <img class="img" src="{{ channel.banner.url }}" alt="">
+        <div class="channel-image-texts">
+            <h4>{{ channel.channel_name }}</h4>
+            {#                        <span>{{ channel.subscribers.all.count }} subscribers</span>#}
+            {#                        <span>{{ channel.subscribers.values.count }} subscribers</span>#}
+            <span id="sub-count"></span><span> subscribers</span>
+        </div>
+    </div>
+    <div class="channel-header-btns">
+{#        <div><a href="" class="channel-join">Join</a></div>#}
+        {% if request.user in channel.subscribers.all %}
+            <div><button id="subscribe-btn" class="channel-subscribe unsubscribe-btn" onclick="switchSub()">UnSubscribe</button></div>
+        {% else %}
+            <div><button id="subscribe-btn" class="channel-subscribe" onclick="switchSub()">Subscribe</button></div>
+        {% endif %}
+    </div>
+</div>
+<div class="channel-header-links flex">
+    <a href="{% url 'channels.show' channel.id %}" class="display-this">Home</a>
+    <a href="{% url 'channels.show_videos' channel.id %}" class="display-this">Videos</a>
+    <a href="{% url 'channels.index_community_posts' channel.id %}" class="dont-display-thdis">Community((blog))</a>
+{#    <a href="index.html" class="dont-display-this">Membership</a>#}
+{#    <a href="index.html" class="dont-display-this">Channels</a>#}
+    <a href="{% url 'channels.show_about' channel.id %}" class="display-this">About</a>
+    <a href="{% url 'search' %}" class="dont-display-this"><i class="material-icons">search</i></a>
+</div>
+<hr>

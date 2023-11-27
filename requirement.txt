@@ -1,0 +1,9 @@
+Django
+psycopg2
+gunicorn
+django-import-export
+django-taggit
+libpq-dev
+postgresql
+postgresql-contrib
+psycopg2

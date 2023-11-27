@@ -1,0 +1,99 @@
+<div class="sidebar">
+    <div class="sidebar-categories">
+
+        <!--Single Category-->
+        <div class="sidebar-category">
+            <i class="material-icons">home</i>
+            <span>Home</span>
+        </div>
+        <!--Single Category-->
+        <div class="sidebar-category">
+            <i class="material-icons">local_fire_department</i>
+            <span>Trending</span>
+        </div>
+        <!--Single Category-->
+        {% if request.user.is_authenticated %}
+        <a href="{% url 'show_user_subscribtions' request.user.id %}">
+            <div class="sidebar-category">
+
+                    <i class="material-icons">subscriptions</i>
+                <span>Subscriptions</span>
+            </div>
+        </a>
+        {% endif %}
+    </div>
+    <hr>
+
+    <div class="sidebar-categories">
+
+        <!--Single Category-->
+        <div class="sidebar-category">
+            <i class="material-icons">library_add_check</i>
+            <span>Library</span>
+        </div>
+        <!--Single Category-->
+        <div class="sidebar-category">
+            <i class="material-icons">history</i>
+            <span>History</span>
+        </div>
+        <!--Single Category-->
+        {% if request.user.is_authenticated %}
+            {% if request.user.channel %}
+                <a href="{% url 'channels.show' request.user.id %}">
+                    <div class="sidebar-category">
+                        <i class="material-icons">play_arrow</i>
+                        <span>Your Videos</span>
+                    </div>
+                </a>
+            {% endif %}
+
+        {% endif %}
+        <!--Single Category-->
+        {% if request.user.is_authenticated %}
+            <a href="{% url 'videos.saved.index'%}">
+                <div class="sidebar-category">
+                    <i class="material-icons">watch_later</i>
+                    <span>Watch Later</span>
+                </div>
+            </a>
+        {% endif %}
+
+            <!--Single Category-->
+        {% if request.user.is_authenticated %}
+            <a href="{% url 'videos.liked.index'%}">
+                <div class="sidebar-category">
+                    <i class="material-icons">thumb_up</i>
+                    <span>Liked Videos</span>
+                </div>
+            </a>
+        {% endif %}
+
+    </div>
+    <hr>
+    <div class="sidebar-categories">
+        {% if request.user.is_authenticated %}
+            <!--Single Category-->
+            <div class="sidebar-category">
+                <a href="{% url 'auth.logout' %}">
+                    <i class="material-icons">logout</i>
+                    <span>Logout</span>
+                </a>
+            </div>
+        {% else %}
+            <!--Single Category-->
+            <a href="{% url 'auth.register' %}">
+                <div class="sidebar-category">
+                    <i class="material-icons">login</i>
+                    <span>Sign Up</span>
+                </div>
+            </a>
+            <!--Single Category-->
+            <a href="{% url 'auth.login' %}">
+                <div class="sidebar-category">
+                    <i class="material-icons">login</i>
+                    <span>Login</span>
+                </div>
+            </a>
+        {% endif %}
+    </div>
+</div>

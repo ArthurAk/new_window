@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/channels/channels.css' %}">
+{% endblock style %}
+
+{% block content %}
+
+    <div class="mainBody">
+        <!-- Sidebar Starts -->
+        {% include 'partials/sidebar.html' %}
+        <!-- Sidebar Ends -->
+
+        <!-- Video Section Starts -->
+        <div class="videos">
+
+            {% include 'channels/partials/channel-header.html' %}
+            <a href="{% url 'channels.create_community_post' channel.id %}"> <i class="material-symbols-outlined">add</i> Create New Post...</a>
+            <div class="videos__container">
+                <!-- Single Video Starts Here -->
+                {% for post in community_posts %}
+                    <div class="content-border">
+                        <div class="content-div">
+                            <div class="header-comm">
+                                <div class="channel-details">
+                                    <img src="{{ post.channel.banner.url }}" class="channel-img-com" alt="">
+                                    <h5>{{ post.channel.channel_name }}</h5>
+                                    <span>{{ post.date|timesince }} ago</span>
+                                </div>
+                                <!-- <div class="elipse-icon">
+                                    <i class="material-symbols-outlined">sort</i>
+                                </div> -->
+                                {% if channel.user == request.user %}
+                                    <div class="dropdown" style="margin-top: 20px">
+                                        {#                                    <button class="dropbtn" onclick="showDropDown()">#}
+                                        {#                                        <i class="material-symbols-outlined">sort</i>#}
+                                        {#                                    </button>#}
+                                        <div class="community_dropdown-content">
+                                            <a href="{% url 'channels.edit_community_post' post.channel.id post.id %}"> <i class="material-symbols-outlined">edit</i> </a>
+                                            <a href="{% url 'channels.delete_community_post' post.channel.id post.id %}"> <i class="material-symbols-outlined">delete</i></a>
+                                            {#                                        <a href="#"> <i class="material-symbols-outlined">share</i> &nbsp; Share</a>#}
+                                        </div>
+                                    </div>
+                                {% endif %}
+
+                            </div>
+                            <div class="content">
+                                <h6>{{ post.title }}</h6>
+                                <a href="{% url 'channels.show_community_post' channel.id post.id %}">
+                                    <h3>{{ post.content|truncatechars:150 }}</h3>
+                                </a>
+                                {% if post.image %}
+                                    <a href="{% url 'channels.show_community_post' channel.id post.id %}">
+                                        <img src="{{ post.image.url }}" alt="">
+                                    </a>
+                                {% endif %}
+                            </div>
+                            <div class="icon-section">
+                                <div class="single-icon">
+                                    <i class="materiald-icons material-symbols-outlined">thumb_up</i>
+                                    <span>30k</span>
+                                </div>
+
+                                <div class="single-icon">
+                                    <i class="materiald-icons material-symbols-outlined">thumb_down</i>
+                                    <span>30k</span>
+                                </div>
+
+                                <div class="single-icon">
+                                    <i class="materiald-icons material-symbols-outlined">share</i>
+                                </div>
+
+                                <div class="single-icon">
+                                    <i class="materiald-icons material-symbols-outlined">chat</i>
+                                    <span>70</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+
+            </div>
+        </div>
+    </div>
+
+    {% include 'channels/partials/subscribe-axios.html' %}
+
+{% endblock content %}
+

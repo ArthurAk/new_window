@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/channels/channels.css' %}">
+{% endblock style %}
+
+{% block content %}
+
+    <div class="mainBody">
+        <!-- Sidebar Starts -->
+        {% include 'partials/sidebar.html' %}
+        <!-- Sidebar Ends -->
+
+        <!-- Video Section Starts -->
+        <div class="videos">
+            {% include 'channels/partials/channel-header.html' %}
+            <br>
+            <div class="popular-video flex">
+                <h3>All Videos</h3>
+
+            </div>
+            <br>
+            <div class="videos__container">
+                {% for video in videos %}
+                    <!-- Single Video Starts Here -->
+                    <div class="video">
+                        <div class="video__thumbnail">
+                            <a href="{% url 'videos.show' video.id %}"><img src="{{ video.image.url }}" alt=""></a>
+                        </div>
+                        <div class="video__details">
+                            <div class="author">
+                                <a href="{% url 'channels.show' channel.id %}"><img src="{{ channel.banner.url }}" alt=""></a>
+                            </div>
+                            <div class="title">
+                                <a href="{% url 'videos.show' video.id %}"><h3>{{ video.title | truncatechars:35}}</h3></a>
+                                <a href=""><small>{{ channel.channel_name }} {% if channel.verified %}<i class="fas fa-check-circle"></i>{% endif %}</small></a>
+                                <span><small>{{ video.views }} View{{ video.views|pluralize }} . {{ video.date|timesince }} Ago</small></span>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+
+            </div>
+            <div class="popular-video flex" style="justify-content: center">
+                <a href="{% url 'videos.create' %}"><h5>Create New Video...</h5></a>
+            </div>
+            <br>
+        </div>
+    </div>
+
+    {% include 'channels/partials/subscribe-axios.html' %}
+
+{% endblock %}
+

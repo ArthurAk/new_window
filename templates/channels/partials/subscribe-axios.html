@@ -1,0 +1,27 @@
+<!-- Subscribers Featuers -->
+<script>
+    let sub_counter = document.getElementById("sub-count")
+    let sub_button = document.getElementById("subscribe-btn")
+    let subscriber_added = []
+
+    function switchSub(){
+        axios.get('{% url 'channels.add_sub' channel.id %}')
+            .then(response => {
+                this.response = response.data
+                sub_button.innerHTML = this.response
+                loadSub()
+                sub_button.classList.toggle("unsubscribe-btn")
+
+            })
+    }
+
+    function loadSub(){
+        axios.get('{% url 'channels.load_subs' channel.id %}')
+            .then(response => {
+                this.response = response.data
+                subscriber_added = this.response
+                sub_counter.innerHTML = subscriber_added.length
+            })
+    }
+    window.onload = loadSub();
+</script>

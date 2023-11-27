@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+{% endblock style %}
+
+{% block content %}
+    <!-- Main Body Start-->
+    <div class="mainBody">
+        <!-- SideBar Section Start-->
+        {% include 'partials/sidebar.html' %}
+        <!-- SideBar Section End-->
+
+        <!-- Video Section Start-->
+        <div class="videos">
+            <div class="drop-down-container">
+                <h1>Liked Videos</h1>
+                <div class="dropdown-content-background">
+                    <div class="dropdown-contents">
+                        <div class="dropdown-content">
+                            <i class="material-icons">videocam</i>
+                            <span>Create</span>
+                        </div>
+
+                        <div class="dropdown-content">
+                            <i class="material-icons">settings</i>
+                            <span>Settings</span>
+                        </div>
+
+                        <div  class="dropdown-content">
+                            <i class="material-icons">person</i>
+                            <span>Switch Account</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="video-container">
+
+                {% for video in videos %}
+                    <!-- Single Video Start-->
+                    <div class="video">
+                        <div class="video-thumbnail">
+                            {% if video.image %}
+                                <a href="{% url 'videos.show' video.id %}"><img src="{{ video.image.url }}" alt="cover-video"></a>
+                            {% endif %}
+                        </div>
+                        <div class="video-details">
+                            <div class="author">
+                                <a href=""><img src="{{ video.user.channel.banner.url }}" alt="{{ video.user.channel.channel_name }} image"></a>
+                            </div>
+                            <div class="title">
+                                <a href="{% url 'videos.show' video.id %}"><h3>{{ video.title|truncatechars:30 }}</h3></a>
+                                <a href="">
+                                    <small>{{ video.user.channel.channel_name }}
+                                        {% if video.user.channel.verified %}
+                                            <i class="fas fa-check-circle"></i>
+                                        {% endif %}
+                                    </small>
+                                </a>
+                                <span><small>{{ video.views }} Views . {{ video.date | timesince }} ago</small></span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Single Video End-->
+                {% endfor %}
+
+            </div>
+        </div>
+    </div>
+    <!-- Main Body End-->
+{% endblock content %}
+
