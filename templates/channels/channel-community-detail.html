@@ -1,0 +1,151 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/channels/channels.css' %}">
+{% endblock style %}
+
+{% block content %}
+    <div class="mainBody">
+        <!-- Sidebar Starts -->
+        {% include 'partials/sidebar.html' %}
+        <!-- Sidebar Ends -->
+
+        <!-- Video Section Starts -->
+        <div class="videos">
+
+            {% include 'channels/partials/channel-header.html' %}
+            <div class="videos__container">
+                <!-- Single Video Starts Here -->
+
+                <div class="content-border">
+                    <div class="content-div">
+                        {% if messages %}
+                            <div class="message-alert">
+                                {% for message in messages %}
+                                    <strong>{{ message }}</strong>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                        <div class="header-comm">
+                            <div class="channel-details">
+                                {% if channel.banner  %}
+                                    <img src="{{ channel.banner.url }}" class="channel-img-com" alt="">
+                                {% endif %}
+                                <h5>{{ channel.channel_name }}</h5>
+                                <span>{{ community_post.date | timesince }} Ago</span>
+                            </div>
+                            <!-- <div class="elipse-icon">
+                                <i class="material-symbols-outlined">sort</i>
+                            </div> -->
+                            {% if channel.user == request.user %}
+                                <div class="dropdown" style="margin-top: 20px">
+                                    {#                                    <button class="dropbtn" onclick="showDropDown()">#}
+                                    {#                                        <i class="material-symbols-outlined">sort</i>#}
+                                    {#                                    </button>#}
+                                    <div class="community_dropdown-content">
+                                        <a href="{% url 'channels.edit_community_post' channel.id community_post.id %}"> <i class="material-symbols-outlined">edit</i> </a>
+                                        <a href="{% url 'channels.delete_community_post' channel.id community_post.id %}"> <i class="material-symbols-outlined">delete</i></a>
+                                        {#                                        <a href="#"> <i class="material-symbols-outlined">share</i> &nbsp; Share</a>#}
+                                    </div>
+                                </div>
+                            {% endif %}
+
+                        </div>
+                        <div class="content">
+                            <h6>{{ community_post.title }}</h6>
+                            <h3>{{ community_post.content }} </h3>
+                            {% if  community_post.image %}
+                                <img src="{{ community_post.image.url }}" alt="">
+                            {% endif %}
+                        </div>
+                        <div class="icon-section">
+                            <div class="single-icon">
+                                <i class="materiald-icons material-symbols-outlined">thumb_up</i>
+                                <span>{{ community_post.likes.all.count }}</span>
+                            </div>
+
+                            <div class="single-icon">
+                                <i class="materiald-icons material-symbols-outlined">thumb_down</i>
+                                <span>30k</span>
+                            </div>
+
+                            <div class="single-icon">
+                                <i class="materiald-icons material-symbols-outlined">share</i>
+                            </div>
+
+                            <div class="single-icon">
+                                <i class="materiald-icons material-symbols-outlined">chat</i>
+                                <span>70</span>
+                            </div>
+                        </div>
+
+
+                        <hr><br><br>
+
+
+                        <div class="comment-section">
+                            <h4>{{ community_post_comments.count }} Comments</h4>
+                            <!-- Create Comment Section -->
+                            <div class="create-comment">
+                                <div class="create-comment-img">
+                                    {% if request.user.channel.banner %}
+                                        <img src="{{ request.user.channel.banner.url }}" alt="">
+                                    {% else %}
+                                        <img src="images/logo.jpg" alt="">
+                                    {% endif %}
+                                </div>
+                                <div class="create-comment-input">
+                                    <form action="{% url 'channels.create_community_comment' community_post.id%}" method="POST">
+                                        {% csrf_token %}
+                                        <input type="text" placeholder="Add a comment" name="comment" id="comment">
+                                        <button type="submit"><i class="material-icons">send</i></button>
+                                    </form>
+                                </div>
+                            </div>
+
+                            {% for comment in community_post_comments %}
+                                <!-- Comments Section -->
+                                <div class="comment-wrap">
+                                    <div class="comments">
+                                        <div class="comment-img">
+                                            {% if comment.user.channel.banner %}
+                                                <img src="{{ comment.user.channel.banner.url }}" alt="">
+                                            {% endif %}
+                                        </div>
+                                        <div class="comment-content">
+                                            <div class="comment-header">
+                                                <h4>{{ comment.user.username }}</h4>
+                                                <p><small>{{ comment.date | timesince }} Ago</small></p>
+                                            </div>
+                                            <p>{{ comment.comment }}</p>
+                                            <div class="comment-icons">
+                                                <div class="comment-icon-single">
+                                                    <i class="material-icons">thumb_up</i>
+                                                    <span>2</span>
+                                                </div>
+                                                <div class="comment-icon-single">
+                                                    <i class="material-icons">thumb_up</i>
+                                                </div>
+                                                <div class="comment-icon-single">
+                                                    <span>Reply</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="delete-comment">
+                                        <a href="{% url 'channels.delete_community_comment' community_post.id comment.id %}"><i class="material-icons">delete</i></a>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% include 'channels/partials/subscribe-axios.html' %}
+{% endblock content %}
+

@@ -1,0 +1,109 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube</title>
+    <link rel="icon" type="image/png" href="images/youtube-icon.png">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.0.0/css/all.css" integrity="sha384-3B6NwesSXE7YJlcLI9RpRqGf2p/EgVH8BgoKTaUrmKNDkHPStTQ3EyoYjCGXaOTS" crossorigin="anonymous" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          rel="stylesheet">
+</head>
+<body>
+
+<!-- Header Section Start-->
+<div class="header">
+    <!-- Header Left Start-->
+    <div class="header-left">
+        <i id="menu" class="material-icons">menu</i>
+        <!--            <img src="https://www.xda-developers.com/files/2017/08/After-12-Years-Google-Gives-YouTube-a-New-Logo-1900x700_c.png"/>-->
+        <img src="https://www.gapfilm.ir/_nuxt/img/logo.56dd883.png"
+             alt="Logo-Image">
+    </div>
+    <!-- Header Left End-->
+
+    <!-- Header Search Start-->
+    <div class="header-search">
+        <form>
+            <input type="text" placeholder="search">
+            <button><i class="material-icons">search</i></button>
+        </form>
+    </div>
+    <!-- Header Search End-->
+
+    <!-- Header Icons Start-->
+    <div class="header-icons">
+        <i class="material-icons display-this">search</i>
+        <i class="material-icons display-this">videocam</i>
+        <i class="material-icons display-this">apps</i>
+        <i class="material-icons display-this">notifications</i>
+        <i id="drop-down" class="material-icons display-this">account_circle</i>
+    </div>
+    <!-- Header Icons Start-->
+</div>
+<!-- Header Section End-->
+
+<!-- Main Body Start-->
+<div class="mainBody">
+    <!-- SideBar Section Start-->
+    {% include 'partials/sidebar.html' %}
+    <!-- SideBar Section End-->
+
+    <!-- Video Section Start-->
+    <div class="videos">
+        <div class="drop-down-container">
+            <h1>Recommended</h1>
+            <div class="dropdown-content-background">
+                <div class="dropdown-contents">
+                    <div class="dropdown-content">
+                        <i class="material-icons">videocam</i>
+                        <span>Create</span>
+                    </div>
+
+                    <div class="dropdown-content">
+                        <i class="material-icons">settings</i>
+                        <span>Settings</span>
+                    </div>
+
+                    <div  class="dropdown-content">
+                        <i class="material-icons">person</i>
+                        <span>Switch Account</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="video-container">
+
+            {% for video in videos %}
+
+                <!-- Single Video Start-->
+                <div class="video">
+                    <div class="video-thumbnail">
+                        {% if video.image %}
+                            <img src="{{ video.image.url }}" alt="cover-video">
+                        {% endif %}
+                    </div>
+                    <div class="video-details">
+                        <div class="author">
+                            <img src="images/logo.jpg" alt="author-profile">
+                        </div>
+                        <div class="title">
+                            <h3>{{ video.title|truncatechars:30 }}</h3>
+                            <a href=""><small>{{ video.user.username }} <i class="fas fa-check-circle"></i></small></a>
+                            <span><small>{{ video.views }} Views . {{ video.date | timesince }} ago</small></span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Single Video End-->
+            {% endfor %}
+        </div>
+    </div>
+</div>
+<!-- Main Body End-->
+<script src="{% static 'js/main.js' %}"></script>
+</body>
+</html>

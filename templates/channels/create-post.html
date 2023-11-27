@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/channels/channels.css' %}">
+{% endblock style %}
+
+
+{% block content %}
+    <div class="mainBody">
+        <!-- Sidebar Start -->
+        {% include 'partials/sidebar.html' %}
+        <!-- Sidebar Ends -->
+
+        <!-- Video Section Starts -->
+        <div class="videos">
+            <div>
+            </div>
+            <form action="" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="upload-content">
+                    <div class="left-video">
+
+                        <h4>Details</h4>
+
+                        {% if  forms.errors %}
+                            <div class="error">
+                                {{ forms.errors }}
+                            </div>
+                        {% endif %}
+
+                        <div class="input-div">
+                            <span>Title (required) <span id="count"></span> </span><br>
+                            {{ forms.title }}
+                        </div>
+
+                        <div class="desc-div">
+                            <span>Content (required) <span id="desc-count"></span> </span> <br>
+                            {{ forms.content }}
+                        </div>
+
+                        <div class="image-div file-input" id="file-input">
+                            <small>Thumbnail (required) </small> <br>
+                            {{ forms.image }}
+                            <span class='button'><i class="material-icons">image</i></span>
+                            <span class='label' data-js-label>No image selected</span>
+
+                        </div>
+
+                        <div class="upload-btn-div">
+                            <button class="upload-btn" type="submit">Publish</button>
+                        </div>
+                    </div>
+                    <div class="right-video">
+                        <div class="r-thumb">
+                            <div class="uploading-video">
+                                <h5>Uploading Video...</h5>
+                            </div>
+                            <!-- <img src="images/logo.jpg" alt=""> -->
+                            <div class="video-details">
+                                <h5>Video Links</h5>
+                                <a href="">https://youtu.be/Bgstu6u&4</a>
+
+                                <h4>Filename</h4>
+                                <span >Video File name here</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock content %}
