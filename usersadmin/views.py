@@ -43,7 +43,8 @@ def create_group(request):
             messages.warning(request, "group already exists")
             return render(request, "usersadmin/create_group.html", {"message": messages})
         group = Group.objects.create(name=name)
-        return redirect('usersadmin/index')
+        group.save()
+        return render(request, 'usersadmin/index_groups.html', group)
     else:
         return render(request, 'usersadmin/create_group.html')
 
