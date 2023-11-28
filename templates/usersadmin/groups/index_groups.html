@@ -46,7 +46,9 @@
                                         <tr>
 
                                             <td>
-                                                {{ group.name }}
+                                                <a href="{% url 'stadio.show_group'  group.id %}" style="color: black">
+                                                    {{ group.name }}
+                                                </a>
                                             </td>
                                             <td><span class="badge bg-success-light">Active</span></td>
                                             <td class="text-right">
