@@ -205,6 +205,9 @@
                     <li {% if request.path == '/usersadmin/groups/'%} class="active" {% endif %}>
                         <a href="{% url 'stadio.index_groups' %}"><i data-feather="users"></i> <span>Group</span></a>
                     </li>
+                    <li {% if request.path == '/usersadmin/permissions/'%} class="active" {% endif %}>
+                        <a href="{% url 'stadio.index_permissions' %}"><i data-feather="users"></i> <span>Permissions</span></a>
+                    </li>
                     <li {% if request.path == '/usersadmin/'%} class="active" {% endif %}>
                         <a href="{% url 'stadio.index_users' %}"><i data-feather="video"></i> <span>Viedeos</span></a>
                     </li>

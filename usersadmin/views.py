@@ -2,9 +2,11 @@ from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import Group, Permission
+from django.contrib.contenttypes.models import ContentType
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
+from usersadmin.forms import PermissionForm
 from videos.models import Video
 
 
@@ -46,6 +48,20 @@ def show_group(request, group_id):
     return render(request, 'usersadmin/groups/show_group.html', context)
 
 
+def create_group(request):
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        group_exists = Group.objects.filter(name=name)
+        if group_exists:
+            messages.warning(request, "group already exists")
+            return render(request, "usersadmin/groups/create_group.html", {"message": messages})
+        group = Group.objects.create(name=name)
+        group.save()
+        return render(request, 'usersadmin/groups/index_groups.html', group)
+    else:
+        return render(request, 'usersadmin/groups/create_group.html')
+
+
 def edit_group(request, group_id):
     if request.method == 'POST':
         # return HttpResponse(group_id)
@@ -64,30 +80,29 @@ def edit_group(request, group_id):
         return render(request, 'usersadmin/groups/edit_group.html', {'group': group})
 
 
-def create_group(request):
-    if request.method == 'POST':
-        name = request.POST.get('name')
-        group_exists = Group.objects.filter(name=name)
-        if group_exists:
-            messages.warning(request, "group already exists")
-            return render(request, "usersadmin/groups/create_group.html", {"message": messages})
-        group = Group.objects.create(name=name)
-        group.save()
-        return render(request, 'usersadmin/groups/index_groups.html', group)
-    else:
-        return render(request, 'usersadmin/groups/create_group.html')
+def index_permissions(request):
+    permissions = Permission.objects.all()
+    return render(request,'usersadmin/groups/index_permissions.html', {'permissions': permissions})
+
+
+def show_permission(request, permission_id):
+    pass
 
 
 def create_permission(request):
     if request.method == 'POST':
-        name = request.POST.get('name')
-        codename = request.POST.get('codename')
-        permission_exists = Permission.objects.filter(codename=codename)
-        if permission_exists:
-            messages.warning(request, "permission already exists")
-            return render(request, "usersadmin/groups/create_permission.html", {"message": messages})
-        permission = Permission.objects.create(codename=codename)
-        permission.save()
-        return render(request, 'usersadmin/groups/index_permissions.html', permission)
+        conetnt_type = ContentType.objects.get_for_model(get_user_model())
+        forms = PermissionForm(request.POST)
+        if forms.is_valid():
+            forms.save(commit=False)
+            forms.content_type = conetnt_type
+            forms.save()
+            messages.success(request, 'Permission created successfully!')
+            return redirect("stadio.index_permissions", forms.name)
     else:
-        return render(request, 'usersadmin/groups/create_permission.html')
+        forms = PermissionForm()
+        return render(request, 'usersadmin/groups/create_permission.html',{'forms': forms})
+
+
+def edit_permission(request, permission_id):
+    pass
