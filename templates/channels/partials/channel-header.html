@@ -1,9 +1,10 @@
+{% load static %}
 <div class="channel-art">
-    <img src="{{ channel.channel_art.url }}" alt="channel-art-image">
+    <img {% if channel.channel_art %} src="{{ channel.channel_art.url }}" {% else %} src="{% static 'images/1.jpg' %}" {% endif %} alt="channel-art-image">
 </div>
 <div class="channel-header flex">
     <div class="channel-img-title flex">
-        <img class="img" src="{{ channel.banner.url }}" alt="">
+        <img {% if channel.channel_art %} src="{{ channel.banner.url }}" {% else %} src="{% static 'images/1.jpg' %}" {% endif %} alt="channel-art-image">
         <div class="channel-image-texts">
             <h4>{{ channel.channel_name }}</h4>
             {#                        <span>{{ channel.subscribers.all.count }} subscribers</span>#}
