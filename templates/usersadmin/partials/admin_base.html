@@ -194,14 +194,23 @@
             <div id="sidebar-menu" class="sidebar-menu">
                 <ul>
                     <li class="menu-title"><span>Main</span></li>
-                    <li class="active">
-                        <a href="index.html"><i data-feather="home"></i> <span>Dashboard</span></a>
+                    <li {% if request.path == '/usersadmin/'%} class="active" {% endif %}>
+                        <a href="{% url 'stadio' %}"><i data-feather="home"></i> <span>Dashboard</span></a>
                     </li>
-                    <li>
-                        <a href="customers.html"><i data-feather="users"></i> <span>Customers</span></a>
+                    <li {% if request.path == '/usersadmin/users/'%} class="active" {% endif %}>
+                        <a href="{% url 'stadio.index_users' %}"><i data-feather="users"></i> <span>Users</span></a>
                     </li>
-                    <li>
-                        <a href="estimates.html"><i data-feather="file-text"></i> <span>Logout</span></a>
+                    <li {% if request.path == '/usersadmin/groups/'%} class="active" {% endif %}>
+                        <a href="{% url 'stadio.index_groups' %}"><i data-feather="users"></i> <span>Group</span></a>
+                    </li>
+                    <li {% if request.path == '/usersadmin/'%} class="active" {% endif %}>
+                        <a href="{% url 'stadio.index_users' %}"><i data-feather="video"></i> <span>Viedeos</span></a>
+                    </li>
+                    <li {% if request.path == '/usersadmin/'%} class="active" {% endif %}>
+                        <a href="{% url 'stadio.index_users' %}"><i data-feather="folder"></i> <span>Channels</span></a>
+                    </li>
+                    <li {% if request.path == '/usersadmin/'%} class="active" {% endif %}>
+                        <a href="estimates.html"><i data-feather="file-text"></i> <span>Logs</span></a>
                     </li>
                 </ul>
             </div>
