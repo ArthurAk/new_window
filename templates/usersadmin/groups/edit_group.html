@@ -62,7 +62,7 @@
                                 <div class="form-group">
                                     <select id="select-permissions" name="permissions" multiple placeholder="Select a state..." class="form-control">
                                         <option value="" disabled>Select a person...</option>
-                                        {% for permission in permissions%}
+                                        {% for permission in permissions %}
                                             <option value="{{ permission.codename }}">{{ permission.name }}</option>
                                         {% endfor %}
                                     </select>
