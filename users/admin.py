@@ -1,6 +1,14 @@
 from django.contrib import admin
-from .models import User, Profile
+from .models import User, Profile, Group, Permission
 from import_export.admin import ImportExportModelAdmin
+
+
+class PermissionAdmin(ImportExportModelAdmin):
+    list_display = ("codename", "name")
+
+
+class GroupAdmin(ImportExportModelAdmin):
+    list_display = ("name", "description")
 
 
 class UserAdmin(ImportExportModelAdmin):
@@ -8,6 +16,9 @@ class UserAdmin(ImportExportModelAdmin):
 
 
 admin.site.register(User, UserAdmin)
+admin.site.register(Group, GroupAdmin)
+admin.site.register(Permission, PermissionAdmin)
+
 
 
 class ProfileAdmin(ImportExportModelAdmin):

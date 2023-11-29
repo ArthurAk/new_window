@@ -1,5 +1,6 @@
 from django import forms
-from django.contrib.auth.models import Permission
+
+from users.models import Permission
 
 
 class GroupForm(forms.ModelForm):

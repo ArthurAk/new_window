@@ -243,11 +243,23 @@
 <script src="{% static 'assets/js/script.js' %}"></script>
 <script src="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/js/tom-select.complete.min.js"></script>
 <script>
-    var settings = {};
-    new TomSelect('#tom-select-it',settings);
-    new TomSelect("#select-state",{
-	maxItems: 3
-    });
+    new TomSelect("#select-permissions",{
+		plugins: ['remove_button'],
+		create: true,
+		onItemAdd:function(){
+			this.setTextboxValue('');
+			this.refreshOptions();
+		},
+		render:{
+			option:function(data,escape){
+				return '<div class="d-flex"><span>' + escape(data.value) + '</span><span class="ms-auto text-muted">' + escape(data.date) + '</span></div>';
+			},
+			item:function(data,escape){
+				return '<div>' + escape(data.value) + '</div>';
+			}
+		}
+	});
+
 </script>
 </body>
 
