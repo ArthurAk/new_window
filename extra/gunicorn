@@ -1,0 +1,32 @@
+[Unit]
+Description=gunicorn socket
+
+[Socket]
+ListenStream=/run/gunicorn.sock
+
+[Install]
+WantedBy=sockets.target
+
+
+
+
+
+
+
+
+
+
+[Unit]
+Description=gunicorn daemon
+Requires=gunicorn.socket
+After=network.target
+
+[Service]
+User=persika
+Group=www-data
+WorkingDirectory=/home/persika/projects/python/Django/new_window
+ExecStart=/home/persika/projects/python/Django/new_window/myprojectenv/bin/guni>
+
+[Install]
+WantedBy=multi-user.target
+
